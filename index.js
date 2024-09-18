@@ -15,7 +15,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/lists', listRoutes);              
-app.use('/lists/:listId/items', listItemsRoutes);
+app.use('/lists', listItemsRoutes);
+
+
 app.use('/categories', categoryRoutes);        
 
 app.listen(PORT, () => {
