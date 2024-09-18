@@ -1,5 +1,6 @@
 import express from 'express';
 import knex from '../knex';  
+// import { knex } from '../index';
 
 const router = express.Router();
 

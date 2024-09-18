@@ -1,19 +1,26 @@
 require("dotenv").config();
 import initKnex from "knex";
-import knexConfiguration from "./knexfile.js";
+import knexConfiguration from "./knex.js";
 import express from "express";
-// import warehouseRoute from "./routes/warehouse.js";
-// import inventoryRoute from "./routes/warehouseInventory.js";
 import cors from "cors";
 
-const PORT = process.env.PORT || 5050;
+const knex = initKnex(knexConfiguration);
+export { knex };
 
-export const knex = initKnex(knexConfiguration);
+import listRoutes from './routes/lists.js';
+import listItemsRoutes from './routes/listItems.js';
+import categoryRoutes from './routes/categories.js';
+
 const app = express();
+const PORT = process.env.PORT || 8080;
+
 app.use(express.json());
 app.use(cors());
 
-// app.use("/api/warehouses", warehouseRoute);
-// app.use("/api/inventories", inventoryRoute);
+app.use('/lists', listRoutes);              
+app.use('/lists/:listId/items', listItemsRoutes);
+app.use('/categories', categoryRoutes);        
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
