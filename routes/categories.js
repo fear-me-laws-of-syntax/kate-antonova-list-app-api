@@ -1,7 +1,7 @@
 // routes/categories.js
 import express from 'express';
-import knex from '../knex';
-// import { knex } from '../index';
+//import knex from '../knex';
+import { knex } from "../index.js";
 
 const router = express.Router();
 
