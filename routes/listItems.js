@@ -9,8 +9,30 @@ const router = express.Router();
 router.get('/:listId/items', async (req, res) => {
   const { listId } = req.params;
   try {
-    const items = await knex('list_items').where('list_id', listId);
-    res.status(200).json(items);
+    // const items = await knex('list_items').join('lists', 'lists.list_id', 'list_items.list_id')
+    // .where({ 'list_items.list_id': listId });
+    // res.status(201).json(items);
+    const list = await knex('lists')
+    .where({ list_id: listId })
+    .first(); 
+
+if (list) {
+    const items = await knex('list_items')
+        .where({ list_id: listId }); 
+
+    // Return the combined response
+    res.status(200).json({
+        title: list.title,
+        list_id: list.list_id,
+        category_id: list.category_id,
+        items: items 
+    });
+} else {
+    // If the list is not found
+    res.status(404).json({ error: 'List not found' });
+}
+
+    
   } catch (error) {
     res.status(500).json({ error: 'Error retrieving items' });
   }
