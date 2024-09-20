@@ -1,5 +1,5 @@
 import initKnex from "knex";
-import knexConfiguration from "./knex.js";
+import knexConfiguration from "./knexfile.js";
 import express from "express";
 import cors from "cors";
 import listRoutes from './routes/lists.js';
