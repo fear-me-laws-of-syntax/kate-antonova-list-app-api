@@ -1,6 +1,7 @@
 // routes/categories.js
 import express from 'express';
-import knex from '../knex';
+//import knex from '../knex';
+import { knex } from "../index.js";
 
 const router = express.Router();
 
@@ -13,6 +14,17 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Error fetching categories' });
   }
 });
+
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const lists = await knex('categories').where({category_id : id}).first();
+    res.status(200).json(lists);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching lists within category' });
+  }
+});
+
 
 // GET /categories/:categoryId/lists - Get all lists within a category
 router.get('/:categoryId/lists', async (req, res) => {

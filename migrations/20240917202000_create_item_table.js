@@ -3,7 +3,6 @@ export function up(knex) {
     table.increments("item_id").primary();
     table.integer("list_id").unsigned().references("list_id").inTable("lists").onDelete("CASCADE").onUpdate("CASCADE");
     table.string("item_name").notNullable();
-    table.string("item_description");
     table.boolean("completed").notNullable().defaultTo(false);
   });
 }

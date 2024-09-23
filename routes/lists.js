@@ -1,5 +1,7 @@
 import express from 'express';
-import knex from '../knex';  
+
+//import knex from '../../../node_modules/knex';  
+import { knex } from "../index.js";
 
 const router = express.Router();
 
@@ -15,6 +17,7 @@ router.get('/', async (req, res) => {
 
 // POST /lists - Create a new list
 router.post('/', async (req, res) => {
+  console.log(req.body)
   const { category_id, title } = req.body;
   try {
     const [newListId] = await knex('lists').insert({ category_id, title });
